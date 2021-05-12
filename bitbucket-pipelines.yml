@@ -1,0 +1,23 @@
+#  Template maven-publish
+
+#  This template allows to test, build and publish with Maven your Java project.
+#  The workflow allows running tests, code checkstyle and security scans on feature branches (as well as master).
+
+# Prerequisites: pom.xml and appropriate project structure should exist in the repository.
+
+image: maven:3.6.3
+
+# Workflow Configuration
+
+pipelines:
+  default:
+    - parallel:
+      - step:
+          name: Build and Deploy
+          caches:
+            - maven
+          script:
+            - mvn package -P dev azure-webapp:deploy
+#          after-script:
+              # Collect checkstyle check results if any and convert to Bitbucket Code Insights.
+#            - pipe: atlassian/checkstyle-report:0.2.0
