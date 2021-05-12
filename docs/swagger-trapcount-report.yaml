@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Reporting Service TrapCount
+  description: 'This service is going to generate reports for Trap Counts, deliveryng a PDF version on emails accounts to Growers and Consultant'
+  termsOfService: TBD
+  contact:
+    name: RIAC|Development
+    email: support@riac.dev
+host: trapcount-report-1615176426823.azurewebsites.net
+schemes:
+  - https
+paths:
+  '/report/ranch/{ranchKey}/{receiver}':
+    get:
+      summary: Generate report by Ranch
+      tags:
+        - Generation
+      parameters:
+        - name: ranchKey
+          in: path
+          required: true
+          type: string
+        - name: receiver
+          in: path
+          required: true
+          type: string
+          enum:
+            - GROWER
+            - CONSULTANT
+            - BOTH
+        - name: startDate
+          in: query
+          required: true
+          type: string
+          description: Start date to execute the query, example `01/01/2020`
+        - name: sender
+          in: query
+          required: true
+          type: string
+          description: Sender email address, who is sending the email report, example 'trapcount@gslong.com'
+
+      responses:
+        '200':
+          description: Successful
+          schema:
+              $ref: '#/definitions/ReportGenerated'
+        '400':
+          description: Bad request
+        '404':
+          description: Ranch not found
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+  '/report/grower/{consultantKey}':
+    get:
+      summary: Generate report by Grower
+      tags:
+        - Generation
+      parameters:
+        - name: consultantKey
+          in: path
+          required: true
+          type: string
+        - name: growerName
+          in: query
+          required: true
+          type: string
+          description: Grower name as appears on the ranch table, example `Airport%20Ranch`, the space should be have `%20`
+        - name: startDate
+          in: query
+          required: true
+          type: string
+          description: Start date to execute the query, example `01/01/2020`
+        - name: sender
+          in: query
+          required: true
+          type: string
+          description: Sender email address, who is sending the email report, example 'trapcount@gslong.com'
+      responses:
+        '200':
+          description: Successful
+          schema:
+              $ref: '#/definitions/ReportGenerated'
+        '400':
+          description: Bad request
+        '404':
+          description: Ranch not found
+        '500':
+          description: Internal Server Error
+        '503':
+          description: Service Unavailable
+
+definitions:
+  ReportGenerated:
+    type: object
+    properties:
+      status:
+        type: string
+        example: OK
+      message:
+        type: string
+        example: Email Sent

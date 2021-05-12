@@ -1,0 +1,36 @@
+logging:
+  level:
+    org.hibernate.SQL: trace
+    root: WARN
+    dev:
+      riac:
+        trapcount:
+          report:
+            trapcountreport: trace
+    org.hibernate.type.descriptor.sql: trace
+
+# DEV
+spring:
+  datasource:
+    url: jdbc:sqlserver://gsl-data-dev.database.windows.net;database=trapcounts
+    username: RicardoZ_Dev
+    password: "#v9g@h4rmNY8qNM$"
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+
+# PROD
+#spring:
+#  datasource:
+#    url: jdbc:sqlserver://gslserver1.database.windows.net;database=TrapCounts
+#    username: tc_report_user
+#    password: Xdy0sFvM^c#sL4AC
+#  jpa:
+#    show-sql: true
+
+trapcount:
+  skip:
+    send:
+      email: true

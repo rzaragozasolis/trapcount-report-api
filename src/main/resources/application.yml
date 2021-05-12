@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+
+# Properties Trapcount
+report:
+  filename:
+    trapdata: /tmp/trap-counts-report
+  url:
+    image:
+      map: https://trapcount.blob.core.windows.net/production/
+
+trapcount:
+  subject:
+    trapdata:
+      email:
+        ranch: Trap Counts for %s, %s updated on %s
+        grower: Trap Counts for %s
+  body.trapdata.email: Report
+  email.bcc: trapcount@gslong.com
+
+postmark.api.client: 8d8238f1-2d73-493f-9735-a6873ba7f55c
+management:
+  endpoint:
+    env:
+      enabled: true
+# management.endpoint.info.enabled=true

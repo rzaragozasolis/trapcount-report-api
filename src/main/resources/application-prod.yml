@@ -1,0 +1,23 @@
+logging:
+  level:
+    org.hibernate.SQL: info
+    root: WARN
+    dev:
+      riac:
+        trapcount:
+          report:
+            trapcountreport: info
+    org.hibernate.type.descriptor.sql: info
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://gslserver1.database.windows.net;database=TrapCounts
+    username: tc_report_user
+    password: Xdy0sFvM^c#sL4AC
+  jpa:
+    show-sql: true
+
+trapcount:
+  skip:
+    send:
+      email: false
